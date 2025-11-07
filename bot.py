@@ -8,6 +8,8 @@ import requests
 import pandas as pd
 import io
 import datetime
+from telegram.ext import Application, CommandHandler
+
 
 request = HTTPXRequest(
        connect_timeout=60.0,  # مهلة الاتصال
@@ -290,17 +292,21 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("🚫 لم أفهم الأمر. الرجاء اختيار أحد الأزرار من الكيبورد.")
 #--------------------------------------------------------------------------------------------------
 #--------------------------------------------------------------------------------------------------
-     
+async def start(update, context):
+    await update.message.reply_text("Bot is running!")
+
 def main():
-    request = HTTPXRequest(connect_timeout=30, read_timeout=30)
-    app = Application.builder().token("8083257429:AAEbtz5zQIifEkJhdVyvkbKy2IwCqh1PQMs").request(request).build()
+    app = Application.builder().token("8083257429:AAEbtz5zQIifEkJhdVyvkbKy2IwCqh1PQMs").build()
+
     app.add_handler(CommandHandler("start", start))
-    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
-    print("🚀 Bot is running...")
+
     app.run_polling(poll_interval=2.0)
 
-if __name__ == '__main__':
-    main()
+if __name__ == "main":
+    main()     
+
+
+
 
 
 
