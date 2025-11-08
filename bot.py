@@ -5,12 +5,13 @@ from googleapiclient.discovery import build
 import requests
 import pandas as pd
 import io
+import os
 import datetime
 import telegram
 import telegram.ext
 print("telegram path:", telegram.__file__)
 print("telegram.ext path:", telegram.ext.__file__)
-5
+BOTTOKEN = os.environ["8083257429:AAEbtz5zQIifEkJhdVyvkbKy2IwCqh1PQMs"]
 
 request = HTTPXRequest(
        connect_timeout=60.0,  # مهلة الاتصال
@@ -291,7 +292,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 #--------------------------------------------------------------------------------------------------
 
 def main():
-    app = Application.builder().token("8083257429:AAEbtz5zQIifEkJhdVyvkbKy2IwCqh1PQMs").request(request).build()
+    app = Application.builder().token(BOTTOKEN).request(request).build()
     app.add_handler(CommandHandler("start", start))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
     print("🚀 Bot is running...")
