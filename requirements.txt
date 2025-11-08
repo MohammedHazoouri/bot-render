@@ -3,4 +3,4 @@ python-telegram-bot==20.7
 google-api-python-client
 requests
 pandas
-googleapiclient
+google-api-python-client
