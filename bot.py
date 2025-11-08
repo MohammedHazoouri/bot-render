@@ -10,8 +10,7 @@ import telegram
 import telegram.ext
 print("telegram path:", telegram.__file__)
 print("telegram.ext path:", telegram.ext.__file__)
-import pkg_resources
-print("ptb version:", pkg_resources.get_distribution("python-telegram-bot").version)
+5
 
 request = HTTPXRequest(
        connect_timeout=60.0,  # مهلة الاتصال
