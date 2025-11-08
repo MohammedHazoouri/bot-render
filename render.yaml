@@ -1,10 +1,10 @@
 services:
-  - type: worker
+  - type: web
     name: personal-points-bot
     env: python
     plan: free
     buildCommand: pip install -r requirements.txt
-    startCommand: python bot.py
+    startCommand: python server.py
     envVars:
       - key: BOT_TOKEN
         value: "8083257429:AAEbtz5zQIifEkJhdVyvkbKy2IwCqh1PQMs"
