@@ -12,7 +12,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("البوت شغال كـ Web Service!")
 
 def run_bot():
-    token = os.environ["BOT_TOKEN"]
+    token = os.environ["8083257429:AAEbtz5zQIifEkJhdVyvkbKy2IwCqh1PQMs"]
     app = ApplicationBuilder().token(token).build()
     app.add_handler(CommandHandler("start", start))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, start))
