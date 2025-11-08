@@ -1,15 +1,17 @@
 from telegram import Update, ReplyKeyboardMarkup, BotCommand
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
-from telegram import BotCommand
 from telegram.request import HTTPXRequest
 from googleapiclient.discovery import build
-from telegram.request import HTTPXRequest
 import requests
 import pandas as pd
 import io
 import datetime
-from telegram.ext import Application, CommandHandler
-
+import telegram
+import telegram.ext
+print("telegram path:", telegram.__file__)
+print("telegram.ext path:", telegram.ext.__file__)
+import pkg_resources
+print("ptb version:", pkg_resources.get_distribution("python-telegram-bot").version)
 
 request = HTTPXRequest(
        connect_timeout=60.0,  # مهلة الاتصال
@@ -94,13 +96,9 @@ async def setup_commands(app):
 #--------------------------------------------------------------------------------------------------
 #--------------------------------------------------------------------------------------------------
 main_keyboard = ReplyKeyboardMarkup(
-    [["📝 الإنجازات", "🏆 الجوائز "],
-     ["⚠️ الخصومات"],
-     ["ملخص اليوم", "نقاطي"],
-     ["⚙️ تواصل - اقتراحات", "ما فائدة البوت"]],
+    [["📝 الإنجازات", "🏆 الجوائز "], ["⚠️ الخصومات"], ["ملخص اليوم", "نقاطي"], ["⚙️ تواصل - اقتراحات", "ما فائدة البوت"]],
     resize_keyboard=True
 )
-
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("الله معو الاستاذ ...", reply_markup=main_keyboard)
     await update.message.reply_text("الرجاء الاختيار 😊", reply_markup=main_keyboard)
@@ -292,24 +290,13 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("🚫 لم أفهم الأمر. الرجاء اختيار أحد الأزرار من الكيبورد.")
 #--------------------------------------------------------------------------------------------------
 #--------------------------------------------------------------------------------------------------
-async def start(update, context):
-    await update.message.reply_text("Bot is running!")
 
 def main():
-    app = Application.builder().token("8083257429:AAEbtz5zQIifEkJhdVyvkbKy2IwCqh1PQMs").build()
-
+    app = Application.builder().token("8083257429:AAEbtz5zQIifEkJhdVyvkbKy2IwCqh1PQMs").request(request).build()
     app.add_handler(CommandHandler("start", start))
+    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
+    print("🚀 Bot is running...")
+    app.run_polling()
 
-    app.run_polling(poll_interval=2.0)
-
-if __name__ == "main":
-    main()     
-
-
-
-
-
-
-
-
-  
+if __name__ == "__main__":
+    main()
