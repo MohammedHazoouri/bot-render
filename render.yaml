@@ -2,6 +2,7 @@ services:
        - type: worker
          name: personal-points-bot
          env: python
+         plan: free
          buildCommand: pip install -r requirements.txt
          startCommand: python bot.py
          autoDeploy: true
